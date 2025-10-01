@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise de Dados - Cotação e Clima</title>
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .container-cotacao {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            box-sizing: border-box;
+            
+            /* Para centralizar o conteúdo */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ESTILO PARA DESTAQUE DOS TÍTULOS */
+        #cotacao-titulo, #tempo-titulo {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #004080;
+            padding: 10px 0;
+            margin-top: 40px;
+            margin-bottom: 25px;
+            border-bottom: 3px solid #eee;
+            width: 100%;
+            text-align: center;
+        }
+        
+        #cotacao-titulo {
+            margin-top: 0; /* O primeiro título fica no topo */
+        }
+        
+        hr {
+            border: none;
+            border-top: 1px dashed #ccc;
+            margin: 40px 0;
+            width: 100%;
+        }
+
+        /* COTAÇÃO */
+        .tabela-cotacao {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .tabela-cotacao th, .tabela-cotacao td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+        }
+
+        .tabela-cotacao th {
+            background-color: #004080;
+            color: white;
+            font-weight: 600;
+        }
+
+        .tabela-cotacao td.valor {
+            font-weight: bold;
+            color: #2a6a2d;
+        }
+
+        .data-atualizacao {
+            font-size: 0.9em;
+            color: #777;
+            margin-top: 0;
+            text-align: center;
+        }
+
+        /* ------------------------- */
+        /* PREVISÃO DO TEMPO - INPUT */
+        /* ------------------------- */
+        .input-cidade-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .input-cidade {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+
+        #input-cidade {
+            width: 75%;
+            max-width: 350px;
+            height: 40px;
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        #btn-buscar-tempo {
+            height: 40px;
+            padding: 0 15px;
+            background-color: #004080;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            flex-shrink: 0; /* Garante que o botão não diminua */
+        }
+
+        #btn-buscar-tempo:hover {
+            background-color: #002d59;
+        }
+        
+        .instrucao-cidade {
+            font-size: 0.85em;
+            color: #888;
+            margin: 5px 0 0 0;
+            text-align: center;
+        }
+
+        /* ------------------------- */
+        /* PREVISÃO DO TEMPO - RESULTADO COM IMAGEM DE FUNDO */
+        /* ------------------------- */
+       /* ------------------------- */
+        /* PREVISÃO DO TEMPO - RESULTADO COM IMAGEM DE FUNDO */
+        /* ------------------------- */
+        .tempo-box-fundo {
+            /* Dimensões e Posição */
+            width: 90%; /* <-- Ajustado: Use largura relativa ou max-width */
+            max-width: 450px; /* <-- Sugestão de largura máxima */
+            /* REMOVIDO: height: 350px; */
+            min-height: 350px; /* <-- Alterado para min-height */
+            margin: 30px auto; 
+            border-radius: 12px;
+            /* REMOVIDO: overflow: hidden; */
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            
+            /* Configuração da Imagem de Fundo (definida via JS) */
+            background-size: cover;
+            background-position: center;
+            background-color: #333; 
+            color: white;
+
+            /* Adicionada a exibição como Flex para melhor controle interno */
+            display: flex;
+            flex-direction: column; 
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* OVERLAY: Camada escura e semi-transparente sobre a imagem */
+        /* ... (O restante do CSS para o overlay e dados de tempo permanece) ... */
+
+        /* OVERLAY: Camada escura e semi-transparente sobre a imagem */
+        .tempo-box-fundo::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4); /* 40% de opacidade */
+            z-index: 1;
+        }
+
+        /* DADOS DE TEMPO: Garante que o texto fique por cima do overlay */
+        .tempo-dados, .tempo-box-fundo h3, .credito-foto {
+            position: relative;
+            z-index: 2; /* Acima do overlay */
+            text-align: center;
+        }
+
+        /* AJUSTES VISUAIS */
+        .tempo-box-fundo h3 {
+            padding: 15px 0 5px 0;
+            font-size: 1.5em;
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+        }
+
+        .tempo-dados {
+            padding-top: 20px;
+        }
+
+        .temp-valor {
+            font-size: 3.5em;
+            font-weight: bold;
+            margin: 5px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .icone-tempo {
+            filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
+        }
+
+        .temp-descricao, .temp-umidade {
+            font-size: 1.1em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        /* CRÉDITO DA FOTO */
+        .credito-foto {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 5px;
+            font-size: 0.7em;
+            text-align: right;
+            color: #ccc;
+        }
+
+        /* BOTÃO VOLTAR */
+        .btn-voltar {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: block; 
+            margin: 30px auto 0 auto; 
+            font-size: 1em;
+        }
+
+        .btn-voltar:hover {
+            background-color: #45a049;
+        }
+        /* Estilo para a nova seção de projeção de vendas */
+.vendas-estimativa {
+    background-color: rgba(255, 255, 255, 0.9); /* Fundo claro para destaque */
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 8px;
+    text-align: center;
+    color: #333;
+}
+
+.vendas-estimativa h4 {
+    margin-top: 0;
+    color: #FF69B4; /* Cor de sorveteria (rosa) */
+    font-size: 1.2em;
+}
+
+.vendas-motivo {
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+.vendas-metrica {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    margin: 10px 0;
+}
+
+.vendas-numero {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #1E90FF; /* Azul para o número principal */
+    line-height: 1;
+    margin-right: 5px;
+}
+
+.vendas-unidade {
+    font-size: 1em;
+    font-weight: 500;
+    color: #555;
+}
+
+.vendas-receita {
+    font-size: 1em;
+    font-weight: bold;
+    margin-bottom: 0;
+    color: #008000; /* Verde para receita */
+}
+/* Garante que o número de picolés apareça e tenha destaque */
+.vendas-numero {
+    font-size: 2.5em; /* Tamanho grande */
+    font-weight: bold;
+    color: #1E90FF !important; /* Cor de destaque (Azul), o !important força a aplicação */
+    line-height: 1;
+    margin-right: 5px;
+    display: inline-block; /* Garante que o span se comporte corretamente */
+}   
+
+    </style>
+</head>
+<body>
+    
+    <div class="container-cotacao">
+        
+        <h2 id="cotacao-titulo">Análise de Dados: Cotação de Moedas</h2>
+        
+        <div id="cotacao-resultado">
+            <p>Carregando dados...</p>
+        </div>
+        
+        <hr>
+
+        <h2 id="tempo-titulo">Previsão do Tempo (OpenWeatherMap)</h2>
+        
+        <div class="input-cidade-container">
+            <div class="input-cidade">
+                <input type="text" id="input-cidade" placeholder="Ex: São Paulo, BR">
+                <button id="btn-buscar-tempo">
+                    Buscar
+                </button>
+            </div>
+            <p class="instrucao-cidade">Digite a cidade e o país (opcional)</p>
+        </div>
+        
+        <div id="tempo-resultado">
+            <p>Use o campo acima para buscar a previsão do tempo.</p>
+        </div>
+        
+        <button onclick="window.location.href='index.html'" class="btn-voltar">
+            Voltar para a Página Principal
+        </button>
+
+    </div>
+
+    <script src="cotacao.js"></script>
+
+</body>
+</html>

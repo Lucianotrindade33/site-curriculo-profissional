@@ -1,0 +1,87 @@
+// easycar-frontend/src/pages/AdminDashboard.tsx
+
+import React, { useState, useEffect } from 'react';
+// IMPORTANTE: 'axios' é a biblioteca que faz a chamada HTTP para o Backend
+import axios from 'axios'; 
+
+// Define a estrutura dos dados que virão do Backend
+interface Metrics {
+    leiloesAtivos: number;
+    leiloesTotal: number;
+    taxaSucesso: number; // Porcentagem de leilões fechados
+    receitaTotal: number; // Em Reais (R$)
+}
+
+const AdminDashboard: React.FC = () => {
+    const [metrics, setMetrics] = useState<Metrics | null>(null);
+    const [loading, setLoading] = useState(true);
+
+    // Efeito para carregar as métricas do Backend quando a tela abre
+    useEffect(() => {
+        const fetchMetrics = async () => {
+            try {
+                // Chama a rota do Backend (easycar-api) para buscar os relatórios
+                const response = await axios.get('http://localhost:3000/admin/metrics', {
+                    // Envia seu token de Admin/PO para provar que tem permissão
+                    headers: { Authorization: `Bearer SEU_TOKEN_ADMIN` } 
+                });
+                setMetrics(response.data);
+            } catch (error) {
+                console.error("Erro ao carregar métricas:", error);
+                // Aqui você pode mostrar uma mensagem de erro na tela
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchMetrics();
+    }, []); // O array vazio garante que o código rode apenas uma vez
+
+    if (loading) {
+        return <div className="loading-state">Carregando Dashboard...</div>;
+    }
+    
+    // Formatação de valores para Real (R$)
+    const formatCurrency = (value: number) => {
+        return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    };
+
+    if (!metrics) {
+        return <div className="error-state">Não foi possível carregar os dados.</div>;
+    }
+
+    return (
+        <div className="admin-dashboard-container">
+            <h1>Dashboard EasyCar - KPIs Essenciais</h1>
+            <div className="metrics-grid">
+                
+                <div className="metric-card">
+                    <h2>Leilões Ativos</h2>
+                    <p className="value">{metrics.leiloesAtivos}</p>
+                    <small>Total rodando neste momento.</small>
+                </div>
+                
+                <div className="metric-card">
+                    <h2>Taxa de Sucesso (Conversão)</h2>
+                    <p className="value">{metrics.taxaSucesso.toFixed(1)}%</p>
+                    <small>Leilões finalizados e aceitos pelo vendedor.</small>
+                </div>
+
+                <div className="metric-card revenue-card">
+                    <h2>Receita Total da EasyCar</h2>
+                    <p className="value">{formatCurrency(metrics.receitaTotal)}</p>
+                    <small>Total arrecadado com a taxa de R$ 299,00.</small>
+                </div>
+                
+                <div className="metric-card">
+                    <h2>Total de Leilões Encerrados</h2>
+                    <p className="value">{metrics.leiloesTotal}</p>
+                    <small>Total de leilões que já atingiram 59 minutos.</small>
+                </div>
+
+            </div>
+        </div>
+    );
+};
+
+export default AdminDashboard;

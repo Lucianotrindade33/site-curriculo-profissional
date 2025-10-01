@@ -1,0 +1,764 @@
+/* ====================================================================== */
+/* 1. LAYOUT BASE DO CURRÍCULO (PÁGINA PRINCIPAL) */
+/* ====================================================================== */
+
+/* 1.1. Garante que o HTML e o BODY ocupem 100% da viewport */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* -- Hero Section -- (Estilos da página principal)*/
+.hero-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.hero-content {
+    flex: 1;
+    padding-right: 50px;
+}
+
+.hero-title {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: #004080;
+    margin-bottom: 10px;
+}
+
+.hero-subtitle {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.hero-image-container {
+    flex-shrink: 0;
+}
+
+.hero-image {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #004080;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.header-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn-outline-blue {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-outline-blue:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+/* -- Seções Comuns do Currículo -- */
+.about-me, .projects-section, .experience-section, .contact-section {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 20px;
+}
+
+.section-title {
+    font-size: 2em;
+    font-weight: 700;
+    color: #004080;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: #777;
+    margin-bottom: 40px;
+}
+
+.highlight {
+    color: #007bff;
+    font-weight: 600;
+}
+/* ====================================================================== */
+/* 3. ESTILOS DO FORMULÁRIO DE CONTATO (contato.html) */
+/* ====================================================================== */
+
+.form-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.form-container h2 {
+    color: #004080;
+    margin-bottom: 25px;
+    font-size: 1.8em;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+}
+
+/* Garante que o input de email, nome e assunto tenha largura total */
+.form-group input, 
+.form-group textarea {
+    width: 100%;
+    padding: 12px; /* Aumentei um pouco o padding para ficar mais clean */
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+/* 🎯 CORREÇÃO CRÍTICA DO CAMPO DE MENSAGEM ("RIDÍCULO") */
+.form-group textarea {
+    resize: vertical;
+    min-height: 180px; /* Altura mínima decente para a caixa de mensagem */
+}
+/* ------------------------------------------------------------- */
+
+.btn-submit {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 600;
+    transition: background-color 0.3s;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.btn-submit:hover {
+    background-color: #0056b3;
+}
+
+.btn-voltar-form {
+    background-color: #ccc;
+    color: #333;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-top: 15px;
+    
+    /* ESSAS DUAS LINHAS GARANTEM QUE ELE FIQUE NO TAMANHO DO CONTEÚDO */
+    display: inline-block; /* Faz com que o botão se ajuste ao texto */
+    width: auto;          /* Garante que não force 100% de largura */
+    
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.btn-voltar-form:hover {
+    background-color: #bbb;
+}
+
+/* Centraliza o botão Voltar (se ele não estiver mais em 100%) */
+.form-container a.btn-voltar-form {
+    margin: 15px auto 0 auto; /* Centraliza o botão não-100% */
+}
+
+
+.btn-voltar-form:hover {
+    background-color: #bbb;
+}
+
+/* ====================================================================== */
+/* 4. MEDIA QUERIES (RESPONSIVIDADE) */
+/* ====================================================================== */
+
+@media (max-width: 900px) {
+    /* 1. Hero Section: Passa para coluna em telas menores */
+    .hero-section {
+        flex-direction: column;
+        text-align: center;
+        margin: 20px auto;
+    }
+
+    .hero-content {
+        padding-right: 0;
+        padding-bottom: 30px;
+        order: 2; /* Move o texto para baixo da imagem */
+    }
+
+    .hero-image-container {
+        order: 1; /* Move a imagem para cima */
+        margin-bottom: 20px;
+    }
+
+    /* 2. Alinha os botões ao centro */
+    .header-actions {
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .btn-outline-blue {
+        width: 100%;
+        max-width: 300px; /* Limita a largura para não esticar demais */
+    }
+
+    /* 3. Skills: Passa para coluna */
+    .skills-grid {
+        flex-direction: column;
+    }
+
+    /* 4. Contato: Passa para coluna */
+    .contact-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .contact-card {
+        max-width: 100%;
+    }
+}
+
+
+/* -- Skills Grid -- */
+.skills-grid {
+    display: flex;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.skill-card {
+    flex: 1;
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    /* REFINAMENTO: Transição e Hover */
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.skill-card:hover {
+    transform: translateY(-5px); /* Move levemente para cima */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Sombra mais intensa */
+}
+
+.skill-title {
+    color: #004080;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    font-size: 1.3em;
+}
+
+.skill-list {
+    list-style: none;
+    padding: 0;
+}
+
+.skill-list li {
+    margin-bottom: 10px;
+}
+
+
+/* -- Projects Section -- */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.project-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    /* TRANSITION JÁ EXISTIA, MELHORANDO O HOVER */
+    transition: transform 0.3s, box-shadow 0.3s; 
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Sombra mais intensa no hover */
+}
+
+.project-content {
+    padding: 25px;
+}
+
+/* 🎯 CORREÇÃO DO RECUA (QUEBRA) VISUAL: Mantenha esta regra */
+.project-content p.project-description {
+    margin-top: 0;
+    margin-bottom: 15px; 
+    padding: 0;
+}
+/* -------------------------------------------------------- */
+
+.project-title {
+    color: #004080;
+    margin-top: 0;
+    font-size: 1.4em;
+}
+
+.project-tech-stack {
+    margin: 15px 0;
+}
+
+.tech-tag {
+    display: inline-block;
+    background-color: #e0f7fa;
+    color: #007bff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8em;
+    margin-right: 5px;
+}
+
+.project-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* -- Experience Section -- */
+.experience-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.experience-card {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    /* REFINAMENTO: Transição e Hover */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-left: 5px solid #007bff;
+}
+
+.experience-card:hover {
+    transform: translateY(-3px); /* Movimento sutil para cima */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.experience-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.experience-role {
+    color: #004080;
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.experience-company {
+    color: #555;
+    font-style: italic;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.experience-date {
+    font-size: 0.9em;
+    color: #777;
+}
+
+.experience-details {
+    list-style-type: '👉';
+    padding-left: 20px;
+}
+
+.experience-details li {
+    padding-left: 10px;
+    margin-bottom: 8px;
+}
+
+
+/* -- Contact Section -- */
+.contact-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.contact-card {
+    flex: 1;
+    max-width: 450px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.contact-title {
+    color: #004080;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+.social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.social-link:hover {
+    color: #007bff;
+}
+
+.social-link img {
+    width: 30px;
+    height: 30px;
+}
+
+/* ====================================================================== */
+/* 9. ESTILOS DA PÁGINA COTAÇÃO (USADOS APENAS EM cotacao.html) */
+/* ====================================================================== */
+
+/* O Container-cotacao deve ser usado APENAS na cotacao.html */
+.container-cotacao {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Override para esta página */
+}
+
+#cotacao-titulo, #tempo-titulo {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #004080;
+    padding: 10px 0;
+    margin-top: 40px;
+    margin-bottom: 25px;
+    border-bottom: 3px solid #eee;
+    width: 100%;
+    text-align: center;
+}
+
+#cotacao-titulo {
+    margin-top: 0; 
+}
+
+hr {
+    border: none;
+    border-top: 1px dashed #ccc;
+    margin: 40px 0;
+    width: 100%;
+}
+
+/* COTAÇÃO */
+.tabela-cotacao {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.tabela-cotacao th, .tabela-cotacao td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+.tabela-cotacao th {
+    background-color: #004080;
+    color: white;
+    font-weight: 600;
+}
+
+.tabela-cotacao td.valor {
+    font-weight: bold;
+    color: #2a6a2d;
+}
+
+/* PREVISÃO DO TEMPO - INPUT */
+.input-cidade-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.input-cidade {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+#input-cidade {
+    width: 75%;
+    max-width: 350px;
+    height: 40px;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+#btn-buscar-tempo {
+    height: 40px;
+    padding: 0 15px;
+    background-color: #004080;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    flex-shrink: 0;
+}
+
+
+/* PREVISÃO DO TEMPO - RESULTADO COM IMAGEM */
+#tempo-resultado {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    width: 100%; 
+    padding-bottom: 10px;
+}
+
+.tempo-box-fundo {
+    width: 90%; 
+    max-width: 450px;
+    min-height: 350px; 
+    margin: 30px auto 0 auto; 
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    background-size: cover;
+    background-position: center;
+    background-color: #333; 
+    color: white;
+    display: flex;
+    flex-direction: column; 
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tempo-box-fundo::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4); 
+    z-index: 1;
+}
+
+.tempo-dados, .tempo-box-fundo h3, .credito-foto {
+    position: relative;
+    z-index: 2; 
+    text-align: center;
+}
+
+.tempo-dados {
+    padding-top: 20px;
+}
+
+.temp-valor {
+    font-size: 3.5em;
+    font-weight: bold;
+    margin: 5px 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.credito-foto {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 5px;
+    font-size: 0.7em;
+    text-align: right;
+    color: #ccc;
+}
+
+/* BOTÃO VOLTAR */
+.btn-voltar {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: block; 
+    margin: 30px auto 0 auto; 
+    font-size: 1em;
+}
+
+.btn-voltar:hover {
+    background-color: #45a049;
+}
+
+
+/* RELATÓRIO DE VENDAS SEPARADO + ANIMAÇÃO DIGITANDO */
+
+.vendas-relatorio-separado {
+    width: 90%;
+    max-width: 450px; 
+    margin: 25px auto 0 auto; 
+    padding: 20px;
+    background-color: #eaf6ff; 
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #cce5ff;
+    color: #333;
+    text-align: center;
+}
+
+.relatorio-titulo {
+    font-size: 1.5em;
+    color: #007bff; 
+    margin-bottom: 15px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 8px;
+}
+
+.vendas-motivo-texto {
+    font-style: italic;
+    font-size: 0.9em;
+    margin-bottom: 20px;
+    color: #555;
+    min-height: 40px; 
+    text-align: left; 
+}
+
+.vendas-motivo-texto strong {
+    font-weight: bold;
+    color: #333;
+}
+
+.vendas-detalhes {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    border-top: 1px solid #ddd;
+}
+
+.vendas-metrica {
+    text-align: center;
+}
+
+.vendas-metrica .vendas-numero {
+    font-size: 3em;
+    font-weight: 900;
+    color: #dc3545; 
+    display: block;
+    line-height: 1;
+    margin-bottom: 5px;
+    min-width: 30px; 
+}
+
+.vendas-metrica .vendas-unidade {
+    font-size: 1.1em;
+    display: block;
+    color: #555;
+}
+
+.vendas-receita-box {
+    text-align: left;
+    padding-left: 20px;
+    border-left: 1px solid #ccc;
+}
+
+.vendas-receita-dolar {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #28a745; 
+    margin: 5px 0;
+}
+
+.vendas-receita-real {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #008000; 
+    margin: 5px 0;
+}
+
+
+/* ESTILOS PARA ANIMAÇÃO TYPEWRITER (Vendas) */
+
+#motivo-texto-animacao,
+#picoles-animacao,
+#usd-animacao,
+#brl-animacao {
+    border-right: 3px solid #007bff; 
+    white-space: pre-wrap; 
+    overflow: hidden; 
+    display: inline-block;
+    vertical-align: top;
+    animation: blink-caret 0.75s step-end infinite;
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: #007bff }
+}

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Vendas - Toyota 0KM</title>
+    <link rel="stylesheet" href="simulador.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS para o novo fluxo de esconder/mostrar */
+        /* Esta classe garante que a seção seja totalmente escondida */
+        .hidden {
+            display: none !important;
+        }
+        .secondary-button {
+            background-color: #ccc;
+            color: #333;
+        }
+        .secondary-button:hover {
+            background-color: #aaa;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-image-container"></div>
+
+    <main class="simulador-container" id="main-content">
+        
+        <section id="simuladorMainSection">
+            <header class="simulador-header">
+                <a href="index.html" class="back-button">
+                    <span class="arrow">←</span> Voltar
+                </a>
+                <h1>Simulador de Vendas Toyota</h1>
+                <p>Selecione o veículo e simule o financiamento em tempo real.</p>
+            </header>
+
+            <section class="car-selection">
+                <label for="carro">Selecione o Modelo:</label>
+                <select id="carro">
+                    <option value="">-- Escolha um carro --</option>
+                    <option value="corollaXei">Corolla XEI</option>
+                    <option value="corollaGli">Corolla GLI</option>
+                    <option value="corollaCrossXr">Corolla Cross XR</option>
+                    <option value="corollaCrossXre">Corolla Cross XRE</option>
+                    <option value="corollaCrossHibrida">Corolla Cross Híbrida</option>
+                    <option value="sw4SrxPlatinum">SW4 SRX Platinum</option>
+                    <option value="hiluxSrx">Hilux SRX</option>
+                </select>
+                <p class="car-price" id="carPrice"></p>
+            </section>
+
+            <section class="financing-input">
+                <label for="entrada">Valor da Entrada (R$):</label>
+                <input type="text" id="entrada" placeholder="Ex: 50000">
+                <button id="calcularBtn">Simular Financiamento</button>
+            </section>
+
+            <section class="financing-results">
+                <h2>Resultados da Simulação</h2>
+                <div id="results">
+                    <p>Nenhuma simulação realizada ainda.</p>
+                </div>
+            </section>
+
+            <section id="fichaSection" class="ficha-section hidden">
+                <button id="showFichaBtn" class="cta-button full-width">PREENCHER FICHA</button>
+                
+                <form id="fichaForm" class="ficha-form hidden">
+                    <h2 class="form-title">Ficha de Proposta (Apenas para Impressão)</h2>
+                    <div class="form-group">
+                        <label for="nomeCompleto">Nome Completo</label>
+                        <input type="text" id="nomeCompleto" name="nomeCompleto" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cpf">CPF</label>
+                        <input type="text" id="cpf" name="cpf">
+                    </div>
+                    <div class="form-group">
+                        <label for="dataNascimento">Data de Nascimento</label>
+                        <input type="date" id="dataNascimento" name="dataNascimento">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cep">CEP</label>
+                        <input type="text" id="cep" name="cep" placeholder="Apenas números">
+                        <span id="cepMessage" class="message"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="endereco">Endereço</label>
+                        <input type="text" id="endereco" name="endereco" disabled>
+                    </div>
+                    <div class="form-group-inline">
+                        <div class="form-group-half">
+                            <label for="numero">Número</label>
+                            <input type="text" id="numero" name="numero">
+                        </div>
+                        <div class="form-group-half">
+                            <label for="complemento">Complemento</label>
+                            <input type="text" id="complemento" name="complemento">
+                        </div>
+                    </div>
+                    <div class="form-group-inline">
+                        <div class="form-group-third">
+                            <label for="bairro">Bairro</label>
+                            <input type="text" id="bairro" name="bairro" disabled>
+                        </div>
+                        <div class="form-group-third">
+                            <label for="cidade">Cidade</label>
+                            <input type="text" id="cidade" name="cidade" disabled>
+                        </div>
+                        <div class="form-group-third">
+                            <label for="estado">Estado</label>
+                            <input type="text" id="estado" name="estado" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="telefone">Telefone</label>
+                        <input type="tel" id="telefone" name="telefone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="profissao">Profissão</label>
+                        <input type="text" id="profissao" name="profissao">
+                    </div>
+                    <div class="form-group">
+                        <label for="rendaBruta">Renda Bruta (R$)</label>
+                        <input type="text" id="rendaBruta" name="rendaBruta">
+                    </div>
+                    <div class="form-group">
+                        <label for="patrimonio">Patrimônio (R$)</label>
+                        <input type="text" id="patrimonio" name="patrimonio">
+                    </div>
+
+                    <button type="submit" class="cta-button full-width">Gerar Ficha para Impressão</button>
+                </form>
+            </section>
+            
+            
+        </section>
+
+        <section class="connect-section hidden" id="connectSection" style="margin-top: 40px; padding-top: 20px;">
+            <h2 class="form-title">Envie sua mensagem</h2>
+            <p>Deixe seus dados para que possamos retornar em breve.</p>
+            
+            <form id="contactForm" class="ficha-form">
+                <div class="form-group">
+                    <label for="contactNomeCompleto">Nome Completo</label>
+                    <input type="text" id="contactNomeCompleto" name="nomeCompleto" required>
+                </div>
+                <div class="form-group">
+                    <label for="contactEmail">Email (Opcional)</label>
+                    <input type="email" id="contactEmail" name="email">
+                </div>
+                <div class="form-group">
+                    <label for="contactMensagem">Mensagem (Opcional)</label>
+                    <textarea id="contactMensagem" name="mensagem" rows="4"></textarea>
+                </div>
+
+                <button type="submit" class="cta-button full-width">Enviar Mensagem</button>
+            </form>
+            
+            <p id="contactSuccessMessage" style="text-align:center; color:#10B981; font-weight:bold; margin-top: 20px;" class="hidden">Sua mensagem foi enviada com sucesso! Entraremos em contato.</p>
+            
+            <button id="backToSimuladorBtn" class="cta-button full-width secondary-button" style="margin-top: 15px;">Voltar à Simulação</button>
+        </section>
+        
+    </main>
+
+    <div id="ficha-impressao" class="ficha-impressao hidden">
+    </div>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <script src="simulador.js"></script>
+</body>
+</html>
