@@ -49,12 +49,12 @@ body {
 }
 
 .hero-image {
-    width: 250px;
-    height: 250px;
-    border-radius: 50%;
+    width: 180px; /* Altere este valor (ex: 150px, 200px) até ficar no tamanho ideal. */
+    height: 180px; /* Deve ser o mesmo valor do 'width' para ser circular */
     object-fit: cover;
-    border: 5px solid #004080;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    /* Remova qualquer margem horizontal excessiva que possa ter sido adicionada aqui */
+
 }
 
 .header-actions {
