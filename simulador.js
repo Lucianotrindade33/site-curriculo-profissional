@@ -16,9 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const coeficientes = {
-        '24x': 0.03645,
-        '36x': 0.04678,
-        '48x': 0.05908
+        '24x': 0.048345,
+        '36x': 0.04002,
+        '48x': 0.03698
     };
 
     // 2. Referências aos elementos HTML

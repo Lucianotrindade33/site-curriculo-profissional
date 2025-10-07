@@ -49,7 +49,7 @@ body {
 }
 
 .hero-image {
-    width: 180px; /* Altere este valor (ex: 150px, 200px) até ficar no tamanho ideal. */
+    width: 180px; 
     height: 180px; /* Deve ser o mesmo valor do 'width' para ser circular */
     object-fit: cover;
     border-radius: 50%;
@@ -147,10 +147,10 @@ body {
     font-size: 1em;
 }
 
-/* 🎯 CORREÇÃO CRÍTICA DO CAMPO DE MENSAGEM ("RIDÍCULO") */
+
 .form-group textarea {
     resize: vertical;
-    min-height: 180px; /* Altura mínima decente para a caixa de mensagem */
+    min-height: 180px; /* Altura mínima  para a caixa de mensagem */
 }
 /* ------------------------------------------------------------- */
 
@@ -322,7 +322,7 @@ body {
     padding: 25px;
 }
 
-/* 🎯 CORREÇÃO DO RECUA (QUEBRA) VISUAL: Mantenha esta regra */
+
 .project-content p.project-description {
     margin-top: 0;
     margin-bottom: 15px; 
